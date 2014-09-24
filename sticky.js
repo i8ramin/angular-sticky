@@ -10,8 +10,8 @@ angular.module("sticky", []).directive("sticky", function($window) {
         $win.bind("scroll.sticky", function(e) {
           var pos = $win.scrollTop();
           for (var i=0; i<scope._stickyElements.length; i++) {
-
             var item = scope._stickyElements[i];
+            var start = item.offset ? (item.start - item.offset) : item.start;
 
             if (!item.isStuck && pos > item.start) {
               item.element.addClass("stuck");
@@ -53,6 +53,7 @@ angular.module("sticky", []).directive("sticky", function($window) {
         element: element,
         isStuck: false,
         placeholder: attrs.usePlaceholder !== undefined,
+        offset: attrs.offset,
         start: element.offset().top
       };
 
